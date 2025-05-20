@@ -1,0 +1,26 @@
+[
+  {
+    "patient_id": "P-1001",
+    "name": "John Doe",
+    "visits": [
+      {
+        "visit_id": "V-2023-001",
+        "date": "2023-05-01",
+        "diagnoses": [
+          {
+            "code": "ICD-10:E11.9",
+            "description": "Type 2 diabetes",
+            "treatments": [
+              {"drug": "Metformin", "dose": "500mg"},
+              {"drug": "Insulin", "dose": "10 units"}
+            ]
+          }
+        ],
+        "provider_notes": {
+          "text": "Patient reported improved symptoms.",
+          "author": "Dr. Smith"
+        }
+      }
+    ]
+  }
+]
