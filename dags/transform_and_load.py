@@ -3,10 +3,12 @@ import os
 import pandas as pd
 from sqlalchemy import create_engine
 
+# Create database engine
 db_url = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@db:5432/medica")
 engine = create_engine(db_url)
 
 def upsert_df(df, table_name, key_column):
+    """Insert or update a DataFrame into a database table using PostgreSQL upsert logic."""
     with engine.begin() as conn:
         for _, row in df.iterrows():
             keys = list(row.keys())
@@ -24,7 +26,19 @@ def upsert_df(df, table_name, key_column):
 
             conn.execute(sql, values)
 
+def validate(df, name):
+    """Validate a DataFrame for nulls and date formatting."""
+    print(f"Validating {name}")
+    if df.isnull().values.any():
+        print(f"{name} contains null values!")
 
+    if "date" in df.columns:
+        print(f"{name} contains date field!")
+        try:
+            pd.to_datetime(df["date"])
+            print('All good with Date format ")
+        except Exception as e:
+            print(f"{name} has invalid date format: {e}")
 
 # Get the absolute path of the current Python file
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -32,9 +46,11 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 # Join it with your filename
 file_path = os.path.join(base_dir, "sample_patient.json")
 
+# Load JSON data
 with open(file_path) as f:
     data = json.load(f)
 
+# Extract data into separate tables
 patients, visits, diagnoses, treatments = [], [], [], []
 
 for patient in data:
@@ -69,13 +85,17 @@ for patient in data:
                     "dose": treat["dose"]
                 })
 
+# Convert lists to DataFrames
 df_patients = pd.DataFrame(patients)
 df_visits = pd.DataFrame(visits)
 df_diagnoses = pd.DataFrame(diagnoses)
 df_treatments = pd.DataFrame(treatments)
 
+# Validate data
+validate(df_patients, 'patients')
+validate(df_visits, 'visits')
 
-
+# Upsert data into database
 upsert_df(df_patients, "patients", "patient_id")
 upsert_df(df_visits, "visits", "visit_id")
 upsert_df(df_diagnoses, "diagnoses", "diagnosis_id")
