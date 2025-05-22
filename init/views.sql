@@ -12,3 +12,10 @@ JOIN diagnoses d ON v.visit_id = d.visit_id
 JOIN treatments t ON d.diagnosis_id = t.diagnosis_id
 WHERE t.drug = 'Metformin'
   AND v.date BETWEEN '2023-04-01' AND '2023-06-30';
+
+
+CREATE VIEW masked_patients AS
+SELECT
+  patient_id,
+  LEFT(name, 1) || '***' AS name
+FROM patients;

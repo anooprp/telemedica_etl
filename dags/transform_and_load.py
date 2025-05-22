@@ -36,7 +36,7 @@ def validate(df, name):
         print(f"{name} contains date field!")
         try:
             pd.to_datetime(df["date"])
-            print('All good with Date format ")
+            print("Date format check passed")
         except Exception as e:
             print(f"{name} has invalid date format: {e}")
 
