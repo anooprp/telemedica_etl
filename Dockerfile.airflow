@@ -1,0 +1,20 @@
+FROM apache/airflow:2.9.1-python3.11
+
+USER root
+
+# Install ARM-compatible Java 11 (Temurin) for Mac M-series
+ENV JAVA_VERSION=11.0.22+7
+RUN mkdir -p /usr/lib/jvm && \
+    curl -L -o /tmp/openjdk.tar.gz https://github.com/adoptium/temurin11-binaries/releases/download/jdk-${JAVA_VERSION}/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.22_7.tar.gz && \
+    tar -xzf /tmp/openjdk.tar.gz -C /usr/lib/jvm && \
+    mv /usr/lib/jvm/jdk-11.0.22+7 /usr/lib/jvm/java-11-openjdk && \
+    rm /tmp/openjdk.tar.gz
+
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+ENV PATH="${JAVA_HOME}/bin:$PATH"
+
+USER airflow
+
+# Install PySpark using the Airflow-approved method
+COPY requirements.txt /
+RUN pip install --no-cache-dir -r /requirements.txt

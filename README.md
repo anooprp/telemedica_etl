@@ -65,7 +65,7 @@ Use the `bi_user` Postgres role:
 
 * **Validation DAG** checks:
 
-  * to be done
+  * sample validation is added
 
 ---
 
@@ -95,7 +95,7 @@ Use the `bi_user` Postgres role:
 * PostgreSQL indexes on critical fields (e.g., `drug`, `patient_id`, `prescribed_at`)
 * Partitioning strategies for large temporal tables (e.g., `treatments`)
 * Materialized views to offload common aggregations
-* Support for future migration to ClickHouse or DuckDB for big data analytics
+* Support for future migration to big data analytics(Pyspark sample dag is added for presentation purpose)
 
 ---
 

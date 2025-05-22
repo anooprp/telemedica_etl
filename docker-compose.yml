@@ -19,7 +19,11 @@ services:
       retries: 5
 
   airflow:
-    image: apache/airflow:2.9.1-python3.11
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
+    platform: linux/arm64
+    image: custom_airflow_pyspark:latest
     container_name: airflow
     restart: always
     environment:
