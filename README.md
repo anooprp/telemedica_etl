@@ -25,6 +25,7 @@ telemedica_etl/
 ├── requirements.txt # Python dependencies
 └── README.md
 
+JSON/CSV data → Pandas/Spark → Postgres → SQL views. Airflow DAGs orchestrate it all
 
 ---
 
