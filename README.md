@@ -79,6 +79,28 @@ Use the `bi_user` Postgres role:
   * sample validation is added
 
 ---
+---
+
+## 🔄 Handling Multiple Data Sources with Schema Differences
+
+This ETL pipeline is built to support ingestion from multiple sources (e.g., hospitals, clinics, devices) — each with their own schema variations and data formats.
+
+### 🛠 Strategy
+
+- ✅ **Schema Mappings Config**: Maintain a `schema_mappings.yaml` to define field mappings, type conversions, and code normalization per source.
+- ✅ **Pluggable Parsers**: Implement source-specific parser classes to handle field-level transformations and quirks.
+- ✅ **Canonical Normalization**: Standardize fields (e.g., gender, dates) into a unified schema using Spark.
+- ✅ **Validation Layer**: Add data quality checks (nulls, type mismatches, allowed values) before loading.
+- ✅ **Staging Tables**: Load raw transformed data into `staging_<source>` tables to isolate errors.
+- ✅ **Final Clean Load**: Move validated records into production-ready fact and dimension tables.
+
+### 💡 Benefits
+
+- 📦 **Easy to Add New Sources** — just create a config + parser.
+- 🔍 **Full Traceability** — each step is logged and auditable.
+- 🚫 **Fault Isolation** — malformed data doesn’t block the pipeline.
+- 🔁 **Scalable & Modular** — built for growing data diversity.
+
 
 ## 🔐 Security & Compliance
 
