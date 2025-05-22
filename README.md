@@ -9,10 +9,21 @@ This project is a lightweight, containerized ETL pipeline designed for ingesting
 ## 🔧 Project Structure
 
 telemedica_etl/
-├── dags/                    # Airflow DAGs for ETL and validation
-├── init/                    # Postgres init scripts (tables, views, roles)
-├── docker-compose.yml       # Orchestration of services
-├── README.md                # This file
+│
+├── dags/
+│ ├── etl_dag.py # Simple pandas DAG
+│ ├── spark_patient_dag.py #  Spark ETL DAG
+│ ├── transform_and_load.py # Pandas transformation logic
+│ └── sample_patient.json # Example input data
+│
+├── init/
+│ ├── init.sql # DB table definitions
+│ └── views.sql # View definitions
+│
+├── Dockerfile.airflow # Airflow custom image
+├── docker-compose.yml # Stack orchestration
+├── requirements.txt # Python dependencies
+└── README.md
 
 
 ---
