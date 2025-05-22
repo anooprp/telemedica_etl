@@ -92,7 +92,7 @@ Use the `bi_user` Postgres role:
 
 ## ⚡ Scalability & Performance
 
-* PostgreSQL indexes on critical fields (e.g., `drug`, `patient_id`, `prescribed_at`)
+* PostgreSQL indexes on critical fields (e.g `patient_id`)
 * Partitioning strategies for large temporal tables (e.g., `treatments`)
 * Materialized views to offload common aggregations
 * Support for future migration to big data analytics(Pyspark sample dag is added for presentation purpose)

@@ -55,7 +55,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@db:5432/medica?sslmode=disable
+      - DATABASE_URL=postgres://bi_user:bi_pass@db:5432/medica?sslmode=disable
 
 volumes:
   pgdata:
